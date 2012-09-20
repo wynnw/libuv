@@ -403,7 +403,6 @@ int uv_getaddrinfo(uv_loop_t* loop,
 
   if (hostname) {
     req->hostname = memcpy(buf + len, hostname, hostname_len);
-    len += hostname_len;
   }
 
   req_ = eio_custom(getaddrinfo_thread_proc,
