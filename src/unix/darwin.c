@@ -227,7 +227,7 @@ int uv_exepath(char* buffer, size_t* size) {
   }
 
   strncpy(buffer, fullpath, *size);
-  free(fullpath);
+  free(path);
   *size = strlen(buffer);
   return 0;
 }
