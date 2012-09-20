@@ -173,9 +173,10 @@ static void uv__udp_run_completed(uv_udp_t* handle) {
     req = ngx_queue_data(q, uv_udp_send_t, queue);
     uv__req_unregister(handle->loop, req);
 
-    if (req->bufs != req->bufsml)
+    if (req->bufs != req->bufsml && req->bufs != NULL) {
       free(req->bufs);
-    req->bufs = NULL;
+      req->bufs = NULL;
+    }
 
     if (req->send_cb == NULL)
       continue;

@@ -355,8 +355,10 @@ void uv__stream_destroy(uv_stream_t* stream) {
     req = ngx_queue_data(q, uv_write_t, queue);
     uv__req_unregister(stream->loop, req);
 
-    if (req->bufs != req->bufsml)
+    if (req->bufs != req->bufsml && req->bufs != NULL) {
       free(req->bufs);
+      req->bufs = NULL;
+    }
 
     if (req->cb) {
       uv__set_artificial_error(req->handle->loop, UV_ECANCELED);
