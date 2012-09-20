@@ -363,6 +363,11 @@ int uv_fs_stat(uv_loop_t* loop, uv_fs_t* req, const char* path, uv_fs_cb cb) {
   char* pathdup;
   int pathlen;
 
+  if (!path || *path == '\0') {
+    uv__set_sys_error(loop, EINVAL);
+    return -1;
+  }
+
   uv_fs_req_init(loop, req, UV_FS_STAT, path, cb);
 
   /* TODO do this without duplicating the string. */
@@ -569,6 +574,11 @@ int uv_fs_futime(uv_loop_t* loop, uv_fs_t* req, uv_file file, double atime,
 int uv_fs_lstat(uv_loop_t* loop, uv_fs_t* req, const char* path, uv_fs_cb cb) {
   char* pathdup;
   int pathlen;
+
+  if (!path || *path == '\0') {
+    uv__set_sys_error(loop, EINVAL);
+    return -1;
+  }
 
   uv_fs_req_init(loop, req, UV_FS_LSTAT, path, cb);
 
