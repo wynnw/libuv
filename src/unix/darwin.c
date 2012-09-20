@@ -419,6 +419,10 @@ uv_err_t uv_interface_addresses(uv_interface_address_t** addresses,
     (*count)++;
   }
 
+  if (*count == 0) {
+    return uv__new_sys_error(ENOENT);
+  }
+
   *addresses = (uv_interface_address_t*)
     malloc(*count * sizeof(uv_interface_address_t));
   if (!(*addresses)) {
